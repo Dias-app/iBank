@@ -1,246 +1,312 @@
 import React from 'react';
-
 import {
-  SafeAreaView,
   View,
   Text,
   StyleSheet,
-  ScrollView,
   TouchableOpacity,
-  StatusBar
+  ScrollView,
 } from 'react-native';
 
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-
 type Props = {
-  onNavigate: (screen: 'Home' | 'Search') => void;
+  onNavigate: (screen: 'Home' | 'Search' | 'Exchange') => void;
 };
 
-const searchItems = [
-  {
-    title: 'Branch',
-    subtitle: 'Search for branch',
-    icon: 'bank',
-    color: '#3478F6'
-  },
-  {
-    title: 'Interest rate',
-    subtitle: 'Search for interest rate',
-    icon: 'chart-box',
-    color: '#3478F6'
-  },
-  {
-    title: 'Exchange rate',
-    subtitle: 'Search for exchange rate',
-    icon: 'chart-line',
-    color: '#6654D9'
-  },
-  {
-    title: 'Exchange',
-    subtitle: 'Exchange amount of money',
-    icon: 'currency-usd',
-    color: '#3478F6'
-  }
-];
-
 export default function SearchScreen({ onNavigate }: Props) {
-  return (
-    <SafeAreaView style={styles.safe}>
-      <StatusBar barStyle="dark-content" />
+  const menuItems = [
+    {
+      title: 'Branch',
+      subtitle: 'Find the nearest bank branch',
+      icon: '🏦',
+      screen: 'Search' as const,
+    },
+    {
+      title: 'Interest rate',
+      subtitle: 'Check current interest rates',
+      icon: '📊',
+      screen: 'Search' as const,
+    },
+    {
+      title: 'Exchange rate',
+      subtitle: 'View currency exchange rates',
+      icon: '💱',
+      screen: 'Exchange' as const,
+    },
+    {
+      title: 'Exchange',
+      subtitle: 'Exchange your money',
+      icon: '💵',
+      screen: 'Exchange' as const,
+    },
+  ];
 
-      <View style={styles.heading}>
+  return (
+    <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
         <TouchableOpacity
           onPress={() => onNavigate('Home')}
-          style={styles.back}
+          style={styles.backButton}
         >
-          <Ionicons
-            name="chevron-back"
-            size={23}
-            color="#333333"
-          />
+          <Text style={styles.backArrow}>‹</Text>
         </TouchableOpacity>
 
-        <Text style={styles.headingText}>Search</Text>
+        <Text style={styles.headerTitle}>Search</Text>
       </View>
 
-      <ScrollView
-        contentContainerStyle={styles.list}
-        showsVerticalScrollIndicator={false}
-      >
-        {searchItems.map((item) => (
-          <TouchableOpacity
-            key={item.title}
-            style={styles.card}
-          >
-            <View style={styles.cardText}>
-              <Text style={styles.title}>
-                {item.title}
-              </Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Text style={styles.heading}>What are you looking for?</Text>
 
-              <Text style={styles.subtitle}>
-                {item.subtitle}
-              </Text>
-            </View>
+        <Text style={styles.description}>
+          Choose a service below
+        </Text>
 
-            <View style={styles.illustration}>
-              <MaterialCommunityIcons
-                name={item.icon as any}
-                size={43}
-                color={item.color}
-              />
-            </View>
-          </TouchableOpacity>
-        ))}
+        {/* Menu */}
+        <View style={styles.menu}>
+          {menuItems.map((item, index) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.menuItem}
+              onPress={() => onNavigate(item.screen)}
+              activeOpacity={0.7}
+            >
+              <View style={styles.iconBox}>
+                <Text style={styles.icon}>{item.icon}</Text>
+              </View>
+
+              <View style={styles.menuText}>
+                <Text style={styles.menuTitle}>
+                  {item.title}
+                </Text>
+
+                <Text style={styles.menuSubtitle}>
+                  {item.subtitle}
+                </Text>
+              </View>
+
+              <Text style={styles.arrow}>›</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        {/* Exchange Banner */}
+        <TouchableOpacity
+          style={styles.banner}
+          onPress={() => onNavigate('Exchange')}
+        >
+          <View>
+            <Text style={styles.bannerTitle}>
+              Currency Exchange
+            </Text>
+
+            <Text style={styles.bannerSubtitle}>
+              Exchange currencies easily
+            </Text>
+
+            <Text style={styles.bannerButton}>
+              Exchange now →
+            </Text>
+          </View>
+
+          <Text style={styles.bannerIcon}>💱</Text>
+        </TouchableOpacity>
       </ScrollView>
 
-      <View style={styles.bottomBar}>
+      {/* Bottom Navigation */}
+      <View style={styles.bottomNav}>
         <TouchableOpacity
-          style={styles.tab}
+          style={styles.navItem}
           onPress={() => onNavigate('Home')}
         >
-          <Ionicons
-            name="home-outline"
-            size={21}
-            color="#888888"
-          />
+          <Text style={styles.navIcon}>⌂</Text>
+          <Text style={styles.navText}>Home</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.activeTab}
-          onPress={() => onNavigate('Search')}
-        >
-          <Ionicons
-            name="search"
-            size={17}
-            color="#FFFFFF"
-          />
-
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.activeIcon}>⌕</Text>
           <Text style={styles.activeText}>Search</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.tab}>
-          <Ionicons
-            name="mail-outline"
-            size={22}
-            color="#888888"
-          />
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navIcon}>✉</Text>
+          <Text style={styles.navText}>Mail</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.tab}>
-          <Ionicons
-            name="settings-outline"
-            size={22}
-            color="#888888"
-          />
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navIcon}>⚙</Text>
+          <Text style={styles.navText}>Settings</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: {
+  container: {
     flex: 1,
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#F7F7FB',
+  },
+
+  header: {
+    height: 60,
+    backgroundColor: '#FFFFFF',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+
+  backButton: {
+    marginRight: 15,
+  },
+
+  backArrow: {
+    fontSize: 32,
+    color: '#333333',
+  },
+
+  headerTitle: {
+    fontSize: 19,
+    fontWeight: 'bold',
+    color: '#333333',
   },
 
   heading: {
-    height: 55,
+    fontSize: 23,
+    fontWeight: 'bold',
+    color: '#292929',
+    marginTop: 25,
+    marginHorizontal: 20,
+  },
+
+  description: {
+    fontSize: 14,
+    color: '#999999',
+    marginHorizontal: 20,
+    marginTop: 8,
+    marginBottom: 20,
+  },
+
+  menu: {
+    paddingHorizontal: 18,
+  },
+
+  menuItem: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 15,
+    padding: 15,
+    marginBottom: 13,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 15
+    elevation: 2,
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 5,
   },
 
-  back: {
-    width: 30,
-    justifyContent: 'center'
-  },
-
-  headingText: {
-    color: '#333333',
-    fontSize: 16,
-    fontWeight: '600',
-    marginLeft: 5
-  },
-
-  list: {
-    paddingHorizontal: 15,
-    paddingTop: 12,
-    paddingBottom: 20
-  },
-
-  card: {
-    minHeight: 90,
+  iconBox: {
+    width: 52,
+    height: 52,
     borderRadius: 14,
-    backgroundColor: '#FFFFFF',
-    marginBottom: 15,
-    paddingHorizontal: 16,
-    paddingVertical: 13,
+    backgroundColor: '#EEEDFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  icon: {
+    fontSize: 25,
+  },
+
+  menuText: {
+    flex: 1,
+    marginLeft: 13,
+  },
+
+  menuTitle: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#333333',
+  },
+
+  menuSubtitle: {
+    fontSize: 11,
+    color: '#999999',
+    marginTop: 5,
+  },
+
+  arrow: {
+    fontSize: 27,
+    color: '#999999',
+  },
+
+  banner: {
+    backgroundColor: '#3529C5',
+    marginHorizontal: 18,
+    marginTop: 12,
+    marginBottom: 25,
+    padding: 20,
+    borderRadius: 18,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    elevation: 3,
-    shadowColor: '#000000',
-    shadowOpacity: 0.06,
-    shadowRadius: 12,
-    shadowOffset: {
-      width: 0,
-      height: 4
-    }
   },
 
-  cardText: {
-    flex: 1
+  bannerTitle: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
   },
 
-  title: {
-    color: '#333333',
+  bannerSubtitle: {
+    fontSize: 12,
+    color: '#DDDAFF',
+    marginTop: 7,
+  },
+
+  bannerButton: {
     fontSize: 13,
-    fontWeight: '700',
-    marginBottom: 6
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginTop: 15,
   },
 
-  subtitle: {
-    color: '#999999',
-    fontSize: 10
+  bannerIcon: {
+    fontSize: 48,
   },
 
-  illustration: {
-    width: 92,
-    height: 60,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-  bottomBar: {
-    height: 62,
-    borderTopWidth: 1,
-    borderTopColor: '#F2F2F2',
+  bottomNav: {
+    height: 70,
     backgroundColor: '#FFFFFF',
     flexDirection: 'row',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    justifyContent: 'space-around'
+    borderTopWidth: 1,
+    borderTopColor: '#EEEEEE',
   },
 
-  activeTab: {
-    flexDirection: 'row',
+  navItem: {
     alignItems: 'center',
-    backgroundColor: '#3926C9',
-    borderRadius: 20,
-    paddingHorizontal: 12,
-    paddingVertical: 7
+    justifyContent: 'center',
+  },
+
+  navIcon: {
+    fontSize: 25,
+    color: '#999999',
+  },
+
+  activeIcon: {
+    fontSize: 25,
+    color: '#3529C5',
+  },
+
+  navText: {
+    fontSize: 11,
+    color: '#999999',
+    marginTop: 3,
   },
 
   activeText: {
-    color: '#FFFFFF',
-    fontSize: 10,
-    marginLeft: 5
+    fontSize: 11,
+    color: '#3529C5',
+    marginTop: 3,
   },
-
-  tab: {
-    width: 42,
-    height: 42,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
 });

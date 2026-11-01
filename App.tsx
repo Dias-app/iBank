@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
@@ -15,6 +14,7 @@ import ChangePassword2 from './screens/ChangePassword2';
 
 import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
+import ExchangeScreen from './screens/ExchangeScreen';
 
 const screens = {
   SignIn,
@@ -28,7 +28,11 @@ const screens = {
   ChangePassword2,
 };
 
-type ScreenName = keyof typeof screens | 'Home' | 'Search';
+type ScreenName =
+  | keyof typeof screens
+  | 'Home'
+  | 'Search'
+  | 'Exchange';
 
 export default function App() {
   const [screen, setScreen] = useState<ScreenName>('SignIn');
@@ -47,10 +51,11 @@ export default function App() {
         <HomeScreen onNavigate={navigate} />
       ) : screen === 'Search' ? (
         <SearchScreen onNavigate={navigate} />
-      ) : (
+      ) : screen === 'Exchange' ? (
+        <ExchangeScreen onNavigate={navigate} />
+      ) : CurrentScreen ? (
         <CurrentScreen navigate={navigate} />
-      )}
-
+      ) : null}
     </SafeAreaView>
   );
 }
