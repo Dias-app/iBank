@@ -13,6 +13,9 @@ import ForgotPassword4 from './screens/ForgotPassword4';
 import ChangePassword1 from './screens/ChangePassword1';
 import ChangePassword2 from './screens/ChangePassword2';
 
+import HomeScreen from './screens/HomeScreen';
+import SearchScreen from './screens/SearchScreen';
+
 const screens = {
   SignIn,
   SignUp1,
@@ -25,7 +28,7 @@ const screens = {
   ChangePassword2,
 };
 
-type ScreenName = keyof typeof screens;
+type ScreenName = keyof typeof screens | 'Home' | 'Search';
 
 export default function App() {
   const [screen, setScreen] = useState<ScreenName>('SignIn');
@@ -34,12 +37,20 @@ export default function App() {
     setScreen(name);
   };
 
-  const CurrentScreen = screens[screen];
+  const CurrentScreen = screens[screen as keyof typeof screens];
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="dark" />
-      <CurrentScreen navigate={navigate} />
+
+      {screen === 'Home' ? (
+        <HomeScreen onNavigate={navigate} />
+      ) : screen === 'Search' ? (
+        <SearchScreen onNavigate={navigate} />
+      ) : (
+        <CurrentScreen navigate={navigate} />
+      )}
+
     </SafeAreaView>
   );
 }
