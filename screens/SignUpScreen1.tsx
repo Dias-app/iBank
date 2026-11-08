@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
-import { Text } from 'react-native';
+import { Alert } from 'react-native';
+
 import {
   Page,
   Welcome,
@@ -13,6 +13,20 @@ export default function SignUp1({ navigate }: any) {
   const [name, setName] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+
+  const continueRegistration = () => {
+    if (!name.trim() || !login.trim() || !password.trim()) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
+
+    if (password.length < 6) {
+      Alert.alert('Error', 'Password must contain at least 6 characters');
+      return;
+    }
+
+    navigate('SignUp2');
+  };
 
   return (
     <Page title="Sign up" back={() => navigate('SignIn')}>
@@ -37,13 +51,9 @@ export default function SignUp1({ navigate }: any) {
         onChangeText={setPassword}
       />
 
-      <Text style={{ fontSize: 12, color: '#666', marginVertical: 14 }}>
-        □ By creating an account you agree to our Terms and Conditions
-      </Text>
-
       <PrimaryButton
         title="Continue"
-        onPress={() => navigate('SignUp2')}
+        onPress={continueRegistration}
       />
 
       <LinkText

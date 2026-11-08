@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from 'react-native';
 
 type Props = {
@@ -17,31 +18,40 @@ export default function SearchScreen({ onNavigate }: Props) {
       title: 'Branch',
       subtitle: 'Find the nearest bank branch',
       icon: '🏦',
-      screen: 'Search' as const,
+      action: 'branch',
     },
     {
       title: 'Interest rate',
       subtitle: 'Check current interest rates',
       icon: '📊',
-      screen: 'Search' as const,
+      action: 'interest',
     },
     {
       title: 'Exchange rate',
       subtitle: 'View currency exchange rates',
       icon: '💱',
-      screen: 'Exchange' as const,
+      action: 'exchange',
     },
     {
       title: 'Exchange',
       subtitle: 'Exchange your money',
       icon: '💵',
-      screen: 'Exchange' as const,
+      action: 'exchange',
     },
   ];
 
+  const openService = (action: string) => {
+    if (action === 'exchange') {
+      onNavigate('Exchange');
+    } else if (action === 'branch') {
+      Alert.alert('Branch', 'Branch information coming soon');
+    } else {
+      Alert.alert('Interest rate', 'Interest rate information coming soon');
+    }
+  };
+
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
           onPress={() => onNavigate('Home')}
@@ -54,19 +64,20 @@ export default function SearchScreen({ onNavigate }: Props) {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={styles.heading}>What are you looking for?</Text>
+        <Text style={styles.heading}>
+          What are you looking for?
+        </Text>
 
         <Text style={styles.description}>
           Choose a service below
         </Text>
 
-        {/* Menu */}
         <View style={styles.menu}>
-          {menuItems.map((item, index) => (
+          {menuItems.map((item) => (
             <TouchableOpacity
-              key={index}
+              key={item.title}
               style={styles.menuItem}
-              onPress={() => onNavigate(item.screen)}
+              onPress={() => openService(item.action)}
               activeOpacity={0.7}
             >
               <View style={styles.iconBox}>
@@ -88,7 +99,6 @@ export default function SearchScreen({ onNavigate }: Props) {
           ))}
         </View>
 
-        {/* Exchange Banner */}
         <TouchableOpacity
           style={styles.banner}
           onPress={() => onNavigate('Exchange')}
@@ -111,7 +121,6 @@ export default function SearchScreen({ onNavigate }: Props) {
         </TouchableOpacity>
       </ScrollView>
 
-      {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
         <TouchableOpacity
           style={styles.navItem}
@@ -121,17 +130,23 @@ export default function SearchScreen({ onNavigate }: Props) {
           <Text style={styles.navText}>Home</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem}>
+        <View style={styles.navItem}>
           <Text style={styles.activeIcon}>⌕</Text>
           <Text style={styles.activeText}>Search</Text>
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => Alert.alert('Mail', 'No new messages')}
+        >
           <Text style={styles.navIcon}>✉</Text>
           <Text style={styles.navText}>Mail</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => Alert.alert('Settings', 'Settings coming soon')}
+        >
           <Text style={styles.navIcon}>⚙</Text>
           <Text style={styles.navText}>Settings</Text>
         </TouchableOpacity>
@@ -145,7 +160,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F7F7FB',
   },
-
   header: {
     height: 60,
     backgroundColor: '#FFFFFF',
@@ -153,22 +167,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
   },
-
   backButton: {
     marginRight: 15,
   },
-
   backArrow: {
     fontSize: 32,
     color: '#333333',
   },
-
   headerTitle: {
     fontSize: 19,
     fontWeight: 'bold',
     color: '#333333',
   },
-
   heading: {
     fontSize: 23,
     fontWeight: 'bold',
@@ -176,7 +186,6 @@ const styles = StyleSheet.create({
     marginTop: 25,
     marginHorizontal: 20,
   },
-
   description: {
     fontSize: 14,
     color: '#999999',
@@ -184,11 +193,9 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 20,
   },
-
   menu: {
     paddingHorizontal: 18,
   },
-
   menuItem: {
     backgroundColor: '#FFFFFF',
     borderRadius: 15,
@@ -202,7 +209,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 5,
   },
-
   iconBox: {
     width: 52,
     height: 52,
@@ -211,33 +217,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   icon: {
     fontSize: 25,
   },
-
   menuText: {
     flex: 1,
     marginLeft: 13,
   },
-
   menuTitle: {
     fontSize: 15,
     fontWeight: 'bold',
     color: '#333333',
   },
-
   menuSubtitle: {
     fontSize: 11,
     color: '#999999',
     marginTop: 5,
   },
-
   arrow: {
     fontSize: 27,
     color: '#999999',
   },
-
   banner: {
     backgroundColor: '#3529C5',
     marginHorizontal: 18,
@@ -249,30 +249,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-
   bannerTitle: {
     fontSize: 17,
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
-
   bannerSubtitle: {
     fontSize: 12,
     color: '#DDDAFF',
     marginTop: 7,
   },
-
   bannerButton: {
     fontSize: 13,
     fontWeight: 'bold',
     color: '#FFFFFF',
     marginTop: 15,
   },
-
   bannerIcon: {
     fontSize: 48,
   },
-
   bottomNav: {
     height: 70,
     backgroundColor: '#FFFFFF',
@@ -282,28 +277,23 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#EEEEEE',
   },
-
   navItem: {
     alignItems: 'center',
     justifyContent: 'center',
   },
-
   navIcon: {
     fontSize: 25,
     color: '#999999',
   },
-
   activeIcon: {
     fontSize: 25,
     color: '#3529C5',
   },
-
   navText: {
     fontSize: 11,
     color: '#999999',
     marginTop: 3,
   },
-
   activeText: {
     fontSize: 11,
     color: '#3529C5',

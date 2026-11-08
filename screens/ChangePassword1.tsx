@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
-import { Text } from 'react-native';
+import { Text, Alert } from 'react-native';
+
 import {
   Page,
   Field,
@@ -10,6 +10,25 @@ import {
 export default function ChangePassword1({ navigate }: any) {
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
+
+  const changePassword = () => {
+    if (!password || !confirm) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
+
+    if (password.length < 6) {
+      Alert.alert('Error', 'Password must contain at least 6 characters');
+      return;
+    }
+
+    if (password !== confirm) {
+      Alert.alert('Error', 'Passwords do not match');
+      return;
+    }
+
+    navigate('ChangePassword2');
+  };
 
   return (
     <Page
@@ -47,7 +66,7 @@ export default function ChangePassword1({ navigate }: any) {
 
       <PrimaryButton
         title="Change password"
-        onPress={() => navigate('ChangePassword2')}
+        onPress={changePassword}
       />
     </Page>
   );

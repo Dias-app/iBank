@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
-import { Text } from 'react-native';
+import { Text, Alert } from 'react-native';
+
 import {
   Page,
   Welcome,
@@ -13,7 +13,27 @@ export default function SignUp2({ navigate }: any) {
   const [name, setName] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [agree, setAgree] = useState(true);
+  const [agree, setAgree] = useState(false);
+
+  const register = () => {
+    if (!name.trim() || !login.trim() || !password.trim()) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
+
+    if (password.length < 6) {
+      Alert.alert('Error', 'Password must contain at least 6 characters');
+      return;
+    }
+
+    if (!agree) {
+      Alert.alert('Error', 'Please agree to the terms');
+      return;
+    }
+
+    Alert.alert('Success', 'Registration completed');
+    navigate('SignIn');
+  };
 
   return (
     <Page title="Sign up" back={() => navigate('SignUp1')}>
@@ -48,7 +68,7 @@ export default function SignUp2({ navigate }: any) {
       <PrimaryButton
         title="Sign up"
         disabled={!agree}
-        onPress={() => navigate('SignIn')}
+        onPress={register}
       />
 
       <LinkText

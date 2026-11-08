@@ -5,10 +5,12 @@ import { StatusBar } from 'expo-status-bar';
 import SignIn from './screens/SignInScreen';
 import SignUp1 from './screens/SignUpScreen1';
 import SignUp2 from './screens/SignUpScreen2';
+
 import ForgotPassword1 from './screens/ForgotPassword1';
 import ForgotPassword2 from './screens/ForgotPassword2';
 import ForgotPassword3 from './screens/ForgotPassword3';
 import ForgotPassword4 from './screens/ForgotPassword4';
+
 import ChangePassword1 from './screens/ChangePassword1';
 import ChangePassword2 from './screens/ChangePassword2';
 
@@ -28,7 +30,7 @@ const screens = {
   ChangePassword2,
 };
 
-type ScreenName =
+export type ScreenName =
   | keyof typeof screens
   | 'Home'
   | 'Search'
@@ -41,7 +43,10 @@ export default function App() {
     setScreen(name);
   };
 
-  const CurrentScreen = screens[screen as keyof typeof screens];
+  const CurrentScreen =
+    screen in screens
+      ? screens[screen as keyof typeof screens]
+      : null;
 
   return (
     <SafeAreaView style={styles.container}>

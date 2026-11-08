@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Alert } from 'react-native';
+
 import {
   Page,
   Welcome,
@@ -8,13 +8,20 @@ import {
   PrimaryButton,
   LinkText,
   s,
-  PURPLE,
 } from './UI';
 
 export default function SignIn({ navigate }: any) {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+
+  const signIn = () => {
+    if (!login.trim() || !password.trim()) {
+      Alert.alert('Error', 'Please enter login and password');
+      return;
+    }
+
+    navigate('Home');
+  };
 
   return (
     <Page title="Sign in" back={() => {}}>
@@ -47,14 +54,8 @@ export default function SignIn({ navigate }: any) {
 
       <PrimaryButton
         title="Sign in"
-        onPress={() => setMessage('Demo: Sign in батырмасы жұмыс істейді')}
+        onPress={signIn}
       />
-
-      {message ? (
-        <Text style={{ color: PURPLE, textAlign: 'center', marginTop: 15 }}>
-          {message}
-        </Text>
-      ) : null}
 
       <View style={{ marginTop: 50 }}>
         <Text style={[s.hint, { textAlign: 'center' }]}>

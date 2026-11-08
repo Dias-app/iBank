@@ -5,11 +5,12 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 type Props = {
-  onNavigate: (screen: 'Home' | 'Search') => void;
+  onNavigate: (screen: 'Home' | 'Search' | 'Exchange') => void;
 };
 
 export default function HomeScreen({ onNavigate }: Props) {
@@ -34,7 +35,10 @@ export default function HomeScreen({ onNavigate }: Props) {
             <Text style={styles.username}>John Smith</Text>
           </View>
 
-          <TouchableOpacity style={styles.notification}>
+          <TouchableOpacity
+            style={styles.notification}
+            onPress={() => Alert.alert('Notifications', 'No new notifications')}
+          >
             <Ionicons name="notifications-outline" size={25} color="#FFFFFF" />
           </TouchableOpacity>
         </View>
@@ -51,7 +55,13 @@ export default function HomeScreen({ onNavigate }: Props) {
 
         <View style={styles.actions}>
           {actions.map((item, index) => (
-            <TouchableOpacity key={index} style={styles.actionItem}>
+            <TouchableOpacity
+              key={item.title}
+              style={styles.actionItem}
+              onPress={() =>
+                Alert.alert(item.title, 'This service is coming soon')
+              }
+            >
               <View style={styles.iconBox}>
                 <Ionicons name={item.icon} size={27} color="#5B55D9" />
               </View>
@@ -78,12 +88,18 @@ export default function HomeScreen({ onNavigate }: Props) {
           <Text style={styles.navText}>Search</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => Alert.alert('Mail', 'No new messages')}
+        >
           <Ionicons name="mail-outline" size={24} color="#777777" />
           <Text style={styles.navText}>Mail</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => Alert.alert('Settings', 'Settings coming soon')}
+        >
           <Ionicons name="settings-outline" size={24} color="#777777" />
           <Text style={styles.navText}>Settings</Text>
         </TouchableOpacity>

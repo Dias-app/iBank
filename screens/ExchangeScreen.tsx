@@ -15,11 +15,11 @@ type Props = {
 };
 
 const currencies = [
-  { code: 'VND', name: 'Viet Nam Dong', rate: 25400 },
-  { code: 'HKS', name: 'Hong Kong Dollar', rate: 7.8 },
-  { code: 'USD', name: 'Dollar', rate: 1 },
-  { code: 'NT$', name: 'Taiwan Dollar', rate: 32 },
-  { code: 'JS', name: 'Jamaica Dollar', rate: 157 },
+  { code: 'VND', name: 'Vietnamese Dong', rate: 25400 },
+  { code: 'HKD', name: 'Hong Kong Dollar', rate: 7.8 },
+  { code: 'USD', name: 'US Dollar', rate: 1 },
+  { code: 'TWD', name: 'Taiwan Dollar', rate: 32 },
+  { code: 'JMD', name: 'Jamaican Dollar', rate: 157 },
   { code: 'KRW', name: 'Korean Won', rate: 1380 },
 ];
 
@@ -42,12 +42,15 @@ export default function ExchangeScreen({ onNavigate }: Props) {
     from = fromCurrency,
     to = toCurrency
   ) => {
-    if (!amount || isNaN(Number(amount))) {
+    const number = Number(amount);
+
+    if (!amount || !Number.isFinite(number) || number <= 0) {
       setToAmount('');
       return;
     }
 
-    const result = (Number(amount) / getRate(from)) * getRate(to);
+    const result = (number / getRate(from)) * getRate(to);
+
     setToAmount(result.toFixed(2));
   };
 
@@ -62,18 +65,17 @@ export default function ExchangeScreen({ onNavigate }: Props) {
   };
 
   const chooseCurrency = (code: string) => {
-    let newFrom = fromCurrency;
-    let newTo = toCurrency;
+    const newFrom =
+      selecting === 'from' ? code : fromCurrency;
 
-    if (selecting === 'from') {
-      newFrom = code;
-      setFromCurrency(code);
-    } else {
-      newTo = code;
-      setToCurrency(code);
-    }
+    const newTo =
+      selecting === 'to' ? code : toCurrency;
+
+    setFromCurrency(newFrom);
+    setToCurrency(newTo);
 
     calculate(fromAmount, newFrom, newTo);
+
     setModalVisible(false);
   };
 
@@ -88,8 +90,8 @@ export default function ExchangeScreen({ onNavigate }: Props) {
   };
 
   const exchange = () => {
-    if (!fromAmount || Number(fromAmount) <= 0) {
-      Alert.alert('Attention', 'Please enter an amount');
+    if (!fromAmount || Number(fromAmount) <= 0 || !toAmount) {
+      Alert.alert('Attention', 'Please enter a valid amount');
       return;
     }
 
@@ -103,7 +105,6 @@ export default function ExchangeScreen({ onNavigate }: Props) {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => onNavigate('Home')}>
           <Text style={styles.backArrow}>‹</Text>
@@ -113,7 +114,6 @@ export default function ExchangeScreen({ onNavigate }: Props) {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Illustration */}
         <View style={styles.illustration}>
           <View style={styles.phone}>
             <Text style={styles.phoneText}>$</Text>
@@ -125,7 +125,6 @@ export default function ExchangeScreen({ onNavigate }: Props) {
           <Text style={styles.person2}>🧍</Text>
         </View>
 
-        {/* Exchange Card */}
         <View style={styles.card}>
           <Text style={styles.label}>From</Text>
 
@@ -152,7 +151,6 @@ export default function ExchangeScreen({ onNavigate }: Props) {
             </TouchableOpacity>
           </View>
 
-          {/* Swap */}
           <TouchableOpacity
             style={styles.swapButton}
             onPress={swapCurrencies}
@@ -184,16 +182,16 @@ export default function ExchangeScreen({ onNavigate }: Props) {
             </TouchableOpacity>
           </View>
 
-          {/* Rate */}
           <View style={styles.rateContainer}>
-            <Text style={styles.rateTitle}>Currency rate</Text>
+            <Text style={styles.rateTitle}>
+              Currency rate
+            </Text>
 
             <Text style={styles.rateText}>
               1 {fromCurrency} = {rateValue.toFixed(4)} {toCurrency}
             </Text>
           </View>
 
-          {/* Exchange Button */}
           <TouchableOpacity
             style={[
               styles.exchangeButton,
@@ -206,7 +204,6 @@ export default function ExchangeScreen({ onNavigate }: Props) {
         </View>
       </ScrollView>
 
-      {/* Currency Modal */}
       <Modal
         visible={modalVisible}
         transparent
@@ -245,7 +242,7 @@ export default function ExchangeScreen({ onNavigate }: Props) {
                       selected && styles.selectedText,
                     ]}
                   >
-                    {item.code} ( {item.name} )
+                    {item.code} ({item.name})
                   </Text>
 
                   {selected && (
@@ -286,7 +283,6 @@ const styles = StyleSheet.create({
     height: 210,
     marginHorizontal: 20,
     marginTop: 5,
-    marginBottom: 5,
     backgroundColor: '#FAFAFF',
     borderRadius: 20,
     alignItems: 'center',
@@ -371,7 +367,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#DDDDDD',
   },
   currencyButton: {
-    width: 75,
+    width: 85,
     height: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -417,7 +413,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   disabledButton: {
-    backgroundColor: '#EDECF6',
+    backgroundColor: '#3529C5',
   },
   exchangeText: {
     color: '#FFFFFF',
@@ -441,7 +437,7 @@ const styles = StyleSheet.create({
   modalHeader: {
     height: 40,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 8,
   },
@@ -451,14 +447,11 @@ const styles = StyleSheet.create({
     color: '#333333',
   },
   closeButton: {
-    position: 'absolute',
-    left: 75,
-    top: -15,
     fontSize: 25,
     color: '#888888',
   },
   currencyOption: {
-    height: 38,
+    height: 42,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

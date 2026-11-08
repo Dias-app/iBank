@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, Alert } from 'react-native';
+
 import {
   Page,
   Field,
@@ -12,6 +12,15 @@ import {
 export default function ForgotPassword3({ navigate }: any) {
   const [code, setCode] = useState('');
 
+  const continueNext = () => {
+    if (code.length < 4) {
+      Alert.alert('Error', 'Enter the verification code');
+      return;
+    }
+
+    navigate('ForgotPassword4');
+  };
+
   return (
     <Page
       title="Forgot password"
@@ -21,17 +30,15 @@ export default function ForgotPassword3({ navigate }: any) {
         Type your code
       </Text>
 
-      <View style={{ marginTop: 15 }}>
-        <Field
-          placeholder="Code"
-          value={code}
-          onChangeText={setCode}
-          keyboardType="number-pad"
-        />
-      </View>
+      <Field
+        placeholder="Code"
+        value={code}
+        onChangeText={setCode}
+        keyboardType="number-pad"
+      />
 
       <Text style={s.hint}>
-        We texted you a code to verify your phone number.
+        We sent you a verification code.
       </Text>
 
       <Text style={s.hint}>
@@ -40,7 +47,7 @@ export default function ForgotPassword3({ navigate }: any) {
 
       <PrimaryButton
         title="Continue"
-        onPress={() => navigate('ForgotPassword4')}
+        onPress={continueNext}
       />
 
       <LinkText

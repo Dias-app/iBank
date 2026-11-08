@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
-import { Text } from 'react-native';
+import { Text, Alert } from 'react-native';
+
 import {
   Page,
   Field,
@@ -10,6 +10,15 @@ import {
 
 export default function ForgotPassword1({ navigate }: any) {
   const [phone, setPhone] = useState('');
+
+  const continueNext = () => {
+    if (phone.replace(/\D/g, '').length < 11) {
+      Alert.alert('Error', 'Enter a valid phone number');
+      return;
+    }
+
+    navigate('ForgotPassword2');
+  };
 
   return (
     <Page title="Forgot password" back={() => navigate('SignIn')}>
@@ -25,12 +34,12 @@ export default function ForgotPassword1({ navigate }: any) {
       />
 
       <Text style={s.hint}>
-        We texted you a code to verify your phone number
+        We will send you a code to verify your phone number.
       </Text>
 
       <PrimaryButton
         title="Continue"
-        onPress={() => navigate('ForgotPassword2')}
+        onPress={continueNext}
       />
     </Page>
   );

@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import {
   View,
   Text,
   TextInput,
-  TouchableOpacity,
   StyleSheet,
+  TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
@@ -50,7 +49,9 @@ export function Welcome({ signup = false }: { signup?: boolean }) {
 
       <View style={s.art}>
         <View style={s.artCircle}>
-          <Text style={s.artIcon}>{signup ? '✦' : '♧'}</Text>
+          <Text style={s.artIcon}>
+            {signup ? '✦' : '♧'}
+          </Text>
         </View>
 
         <View style={[s.dot, {
@@ -75,13 +76,21 @@ export function Welcome({ signup = false }: { signup?: boolean }) {
   );
 }
 
+type FieldProps = {
+  placeholder: string;
+  value: string;
+  onChangeText: (value: string) => void;
+  password?: boolean;
+  keyboardType?: any;
+};
+
 export function Field({
   placeholder,
   value,
   onChangeText,
   password = false,
   keyboardType,
-}: any) {
+}: FieldProps) {
   const [visible, setVisible] = useState(false);
 
   return (
@@ -98,19 +107,29 @@ export function Field({
       />
 
       {password && (
-        <TouchableOpacity onPress={() => setVisible(!visible)}>
-          <Text style={s.eye}>{visible ? 'Hide' : 'Show'}</Text>
+        <TouchableOpacity
+          onPress={() => setVisible(!visible)}
+        >
+          <Text style={s.eye}>
+            {visible ? 'Hide' : 'Show'}
+          </Text>
         </TouchableOpacity>
       )}
     </View>
   );
 }
 
+type ButtonProps = {
+  title: string;
+  onPress: () => void;
+  disabled?: boolean;
+};
+
 export function PrimaryButton({
   title,
   onPress,
   disabled = false,
-}: any) {
+}: ButtonProps) {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -122,7 +141,13 @@ export function PrimaryButton({
   );
 }
 
-export function LinkText({ text, onPress }: any) {
+export function LinkText({
+  text,
+  onPress,
+}: {
+  text: string;
+  onPress: () => void;
+}) {
   return (
     <TouchableOpacity onPress={onPress}>
       <Text style={s.link}>{text}</Text>
