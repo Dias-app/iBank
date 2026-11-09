@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Dashboard Prototype</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="main-nav">
+        <a href="index.html" class="active">Курсы и ставки</a>
+        <a href="transfer/transfer.html">Переводы</a>
+    </nav>
+
+    <div class="app-container">
+        
+        <!-- Экран 1: Branch -->
+        <div class="screen">
+            <div class="header">
+                <span class="back-btn">&lt;</span>
+                <h2>Branch</h2>
+            </div>
+            <img src="https://static-maps.yandex.ru/1.x/?ll=37.617635,55.755814&z=12&l=map&size=600,300" class="map-img" alt="Карта">
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Bank">
+            </div>
+            <ul class="list">
+                <li>Bank 1656 Union Street <span>60 m</span></li>
+                <li>Bank Secaucus <span>1.2 km</span></li>
+                <li>Bank 1657 Riverside Drive <span>5.3 km</span></li>
+            </ul>
+        </div>
+
+        <!-- Экран 2: Interest Rate -->
+        <div class="screen">
+            <div class="header">
+                <span class="back-btn">&lt;</span>
+                <h2>Interest rate</h2>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Interest kind</th>
+                        <th>Deposit</th>
+                        <th>Rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Individual customers</td>
+                        <td>1m</td>
+                        <td class="rate">4.50%</td>
+                    </tr>
+                    <tr>
+                        <td>Corporate customers</td>
+                        <td>2m</td>
+                        <td class="rate">5.50%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Экран 3: Exchange Rate -->
+        <div class="screen">
+            <div class="header">
+                <span class="back-btn">&lt;</span>
+                <h2>Exchange rate</h2>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Country</th>
+                        <th>Buy</th>
+                        <th>Sell</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="country">
+                                <img src="https://flagcdn.com/w40/vn.png" class="flag" alt="Vietnam">
+                                <span>Vietnam</span>
+                            </div>
+                        </td>
+                        <td>1.403</td>
+                        <td>1.748</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="country">
+                                <img src="https://flagcdn.com/w40/ni.png" class="flag" alt="Nicaragua">
+                                <span>Nicaragua</span>
+                            </div>
+                        </td>
+                        <td>9.123</td>
+                        <td>12.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Экран 4: Language -->
+        <div class="screen">
+            <div class="header">
+                <span class="back-btn">&lt;</span>
+                <h2>Language</h2>
+            </div>
+            <ul class="list language-list">
+                <li>
+                    <div class="country">
+                        <img src="https://flagcdn.com/w40/vn.png" class="flag" alt="Vietnam">
+                        <span>Vietnamese</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="country">
+                        <img src="https://flagcdn.com/w40/fr.png" class="flag" alt="France">
+                        <span>French</span>
+                    </div>
+                </li>
+                <li class="active">
+                    <div class="country">
+                        <img src="https://flagcdn.com/w40/gb.png" class="flag" alt="English">
+                        <span>English</span>
+                    </div>
+                    <span class="check">✓</span>
+                </li>
+                <li>
+                    <div class="country">
+                        <img src="https://flagcdn.com/w40/jp.png" class="flag" alt="Japan">
+                        <span>Japanese</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="country">
+                        <img src="https://flagcdn.com/w40/pt.png" class="flag" alt="Portugal">
+                        <span>Portuguese</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div> <!-- Закрываем app-container -->
+
+    <script src="script.js"></script>
+</body>
+</html>

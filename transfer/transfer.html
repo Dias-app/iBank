@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer App Prototype</title>
+    <link rel="stylesheet" href="transfer.css">
+</head>
+<body>
+    <nav class="main-nav">
+        <a href="../index.html">Курсы и ставки</a>
+        <a href="transfer.html" class="active">Переводы</a>
+    </nav>
+
+    <div class="app-container">
+        
+        <!-- Экран 1: Пустая форма -->
+        <div class="screen">
+            <div class="header">
+                <span class="back-btn">&lt;</span>
+                <h2>Transfer</h2>
+            </div>
+            
+            <div class="select-box">Choose account / card <span>⌄</span></div>
+            
+            <p class="label">Choose transaction</p>
+            <div class="transactions">
+                <div class="trans-item active">
+                    <span class="icon">💳</span>
+                    <p>Transfer via card number</p>
+                </div>
+                <div class="trans-item">
+                    <span class="icon">👤</span>
+                    <p>Transfer to the same bank</p>
+                </div>
+                <div class="trans-item">
+                    <span class="icon">🏦</span>
+                    <p>Transfer to another bank</p>
+                </div>
+            </div>
+
+            <div class="beneficiary-header">
+                <p class="label">Choose beneficiary</p>
+                <a href="#" class="link">Find beneficiary</a>
+            </div>
+            <div class="beneficiaries">
+                <div class="ben-item add"><span>+</span></div>
+                <div class="ben-item"><img src="https://i.pravatar.cc/100?img=5" alt="Emma"><p>Emma</p></div>
+                <div class="ben-item"><img src="https://i.pravatar.cc/100?img=11" alt="Justin"><p>Justin</p></div>
+            </div>
+
+            <div class="form">
+                <input type="text" placeholder="Name">
+                <input type="text" placeholder="Card number">
+                <input type="text" placeholder="Amount">
+                <input type="text" placeholder="Content">
+                <label class="checkbox-label">
+                    <input type="checkbox"> Save to directory of beneficiary
+                </label>
+                <button class="confirm-btn disabled">Confirm</button>
+            </div>
+        </div>
+
+        <!-- Экран 2: Выбран счет, заполнено -->
+        <div class="screen">
+            <div class="header">
+                <span class="back-btn">&lt;</span>
+                <h2>Transfer</h2>
+            </div>
+            
+            <div class="select-box active-select">VISA **** **** 1234 <span>⌄</span></div>
+            <p class="balance">Available balance: <strong>10.000$</strong></p>
+            
+            <p class="label">Choose transaction</p>
+            <div class="transactions">
+                <div class="trans-item active">
+                    <span class="icon">💳</span>
+                    <p>Transfer via card number</p>
+                </div>
+                <div class="trans-item">
+                    <span class="icon">👤</span>
+                    <p>Transfer to the same bank</p>
+                </div>
+                <div class="trans-item">
+                    <span class="icon">🏦</span>
+                    <p>Transfer to another bank</p>
+                </div>
+            </div>
+
+            <div class="beneficiary-header">
+                <p class="label">Choose beneficiary</p>
+                <a href="#" class="link">Find beneficiary</a>
+            </div>
+            <div class="beneficiaries">
+                <div class="ben-item add"><span>+</span></div>
+                <div class="ben-item"><img src="https://i.pravatar.cc/100?img=5" alt="Emma"><p>Emma</p></div>
+                <div class="ben-item"><img src="https://i.pravatar.cc/100?img=11" alt="Justin"><p>Justin</p></div>
+            </div>
+
+            <div class="form">
+                <input type="text" value="Capi Creative Design">
+                <input type="text" value="0123456789109">
+                <input type="text" value="$1000">
+                <input type="text" value="$1000">
+                <p class="hint">One thousand dollar</p>
+                <label class="checkbox-label checked">
+                    <input type="checkbox" checked> Save to directory of beneficiary
+                </label>
+                <button class="confirm-btn">Confirm</button>
+            </div>
+        </div>
+
+        <!-- Экран 3: Выбор счета -->
+        <div class="screen">
+            <div class="header">
+                <span class="back-btn">&lt;</span>
+                <h2>Transfer</h2>
+            </div>
+            
+            <div class="select-box active-select">Account 1234 5678 5689 <span>⌄</span></div>
+            <p class="balance">Available balance: <strong>10.000$</strong></p>
+            
+            <p class="label">Choose transaction</p>
+            <div class="transactions">
+                <div class="trans-item active">
+                    <span class="icon">💳</span>
+                    <p>Transfer via card number</p>
+                </div>
+                <div class="trans-item">
+                    <span class="icon">👤</span>
+                    <p>Transfer to the same bank</p>
+                </div>
+                <div class="trans-item">
+                    <span class="icon">🏦</span>
+                    <p>Transfer to another bank</p>
+                </div>
+            </div>
+
+            <div class="beneficiary-header">
+                <p class="label">Choose beneficiary</p>
+                <a href="#" class="link">Find beneficiary</a>
+            </div>
+            <div class="beneficiaries">
+                <div class="ben-item add"><span>+</span></div>
+                <div class="ben-item"><img src="https://i.pravatar.cc/100?img=5" alt="Emma"><p>Emma</p></div>
+                <div class="ben-item"><img src="https://i.pravatar.cc/100?img=11" alt="Justin"><p>Justin</p></div>
+            </div>
+
+            <div class="form">
+                <input type="text" placeholder="Name">
+                <input type="text" placeholder="Card number">
+                <input type="text" placeholder="Amount">
+                <input type="text" placeholder="Content">
+                <label class="checkbox-label">
+                    <input type="checkbox"> Save to directory of beneficiary
+                </label>
+                <button class="confirm-btn disabled">Confirm</button>
+            </div>
+        </div>
+
+        <!-- Экран 4: Выбран получатель Emma -->
+        <div class="screen">
+            <div class="header">
+                <span class="back-btn">&lt;</span>
+                <h2>Transfer</h2>
+            </div>
+            
+            <div class="select-box active-select">VISA **** **** 1234 <span>⌄</span></div>
+            <p class="balance">Available balance: <strong>10.000$</strong></p>
+            
+            <p class="label">Choose transaction</p>
+            <div class="transactions">
+                <div class="trans-item active">
+                    <span class="icon">💳</span>
+                    <p>Transfer via card number</p>
+                </div>
+                <div class="trans-item">
+                    <span class="icon">👤</span>
+                    <p>Transfer to the same bank</p>
+                </div>
+                <div class="trans-item">
+                    <span class="icon">🏦</span>
+                    <p>Transfer to another bank</p>
+                </div>
+            </div>
+
+            <div class="beneficiary-header">
+                <p class="label">Choose beneficiary</p>
+                <a href="#" class="link">Find beneficiary</a>
+            </div>
+            <div class="beneficiaries">
+                <div class="ben-item add"><span>+</span></div>
+                <div class="ben-item active-ben"><img src="https://i.pravatar.cc/100?img=5" alt="Emma"><p>Emma</p></div>
+                <div class="ben-item"><img src="https://i.pravatar.cc/100?img=11" alt="Justin"><p>Justin</p></div>
+            </div>
+
+            <div class="form">
+                <input type="text" value="Capi Creative Design">
+                <input type="text" value="0123456789109">
+                <input type="text" value="$1000">
+                <input type="text" value="$1000">
+                <p class="hint">One thousand dollar</p>
+                <label class="checkbox-label checked">
+                    <input type="checkbox" checked> Save to directory of beneficiary
+                </label>
+                <button class="confirm-btn">Confirm</button>
+            </div>
+        </div>
+
+    </div> <!-- Закрываем app-container -->
+
+    <script src="transfer.js"></script>
+</body>
+</html>
