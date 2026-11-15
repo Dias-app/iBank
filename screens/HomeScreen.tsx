@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   View,
@@ -11,9 +12,10 @@ import { Ionicons } from '@expo/vector-icons';
 
 type Props = {
   onNavigate: (screen: 'Home' | 'Search' | 'Exchange') => void;
+  userName: string;
 };
 
-export default function HomeScreen({ onNavigate }: Props) {
+export default function HomeScreen({ onNavigate, userName }: Props) {
   const actions = [
     { title: 'Account and Card', icon: 'card-outline' as const },
     { title: 'Transfer', icon: 'swap-horizontal-outline' as const },
@@ -32,7 +34,7 @@ export default function HomeScreen({ onNavigate }: Props) {
         <View style={styles.header}>
           <View>
             <Text style={styles.welcome}>Welcome back,</Text>
-            <Text style={styles.username}>John Smith</Text>
+            <Text style={styles.username}>{userName}</Text>
           </View>
 
           <TouchableOpacity
@@ -48,7 +50,9 @@ export default function HomeScreen({ onNavigate }: Props) {
           <Text style={styles.cardNumber}>**** **** **** 4589</Text>
           <Text style={styles.balanceTitle}>Your balance</Text>
           <Text style={styles.balance}>$3,469.52</Text>
-          <Text style={styles.cardHolder}>JOHN SMITH</Text>
+          <Text style={styles.cardHolder}>
+            {userName.toUpperCase()}
+          </Text>
         </View>
 
         <Text style={styles.sectionTitle}>Quick Actions</Text>

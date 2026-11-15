@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
@@ -39,7 +40,14 @@ export type ScreenName =
 export default function App() {
   const [screen, setScreen] = useState<ScreenName>('SignIn');
 
-  const navigate = (name: ScreenName) => {
+  // Save user's name
+  const [userName, setUserName] = useState('User');
+
+  const navigate = (name: ScreenName, newUserName?: string) => {
+    if (newUserName) {
+      setUserName(newUserName);
+    }
+
     setScreen(name);
   };
 
@@ -53,7 +61,10 @@ export default function App() {
       <StatusBar style="dark" />
 
       {screen === 'Home' ? (
-        <HomeScreen onNavigate={navigate} />
+        <HomeScreen
+          onNavigate={navigate}
+          userName={userName}
+        />
       ) : screen === 'Search' ? (
         <SearchScreen onNavigate={navigate} />
       ) : screen === 'Exchange' ? (

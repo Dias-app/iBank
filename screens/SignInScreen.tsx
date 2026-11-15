@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Text, View, Alert } from 'react-native';
 
@@ -20,7 +21,8 @@ export default function SignIn({ navigate }: any) {
       return;
     }
 
-    navigate('Home');
+    // Entered login is sent to HomeScreen
+    navigate('Home', login.trim());
   };
 
   return (

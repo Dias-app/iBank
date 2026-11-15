@@ -32,7 +32,7 @@ export default function SignUp2({ navigate }: any) {
     }
 
     Alert.alert('Success', 'Registration completed');
-    navigate('SignIn');
+    navigate('SignIn', name.trim());
   };
 
   return (
