@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { getExchangeRates } from '../api/exchange';
 import {
   View,
   Text,
@@ -37,17 +38,9 @@ export default function ExchangeScreen({ onNavigate }: Props) {
       setLoading(true);
       setError('');
 
-      const response = await fetch(
-        'https://open.er-api.com/v6/latest/KZT'
-      );
+    const rates = await getExchangeRates();
+setRates(rates);
 
-      const data = await response.json();
-
-      if (data.result !== 'success') {
-        throw new Error('Could not load exchange rates');
-      }
-
-      setRates(data.rates);
     } catch (e) {
       setError('Unable to load currency rates. Check your internet.');
     } finally {
