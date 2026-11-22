@@ -1,15 +1,12 @@
+
 import React from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  Alert,
+  View, Text, StyleSheet,
+  TouchableOpacity, ScrollView, Alert,
 } from 'react-native';
 
 type Props = {
-  onNavigate: (screen: 'Home' | 'Search' | 'Exchange') => void;
+  onNavigate: (screen: any) => void;
 };
 
 export default function SearchScreen({ onNavigate }: Props) {
@@ -18,48 +15,40 @@ export default function SearchScreen({ onNavigate }: Props) {
       title: 'Branch',
       subtitle: 'Find the nearest bank branch',
       icon: '🏦',
-      action: 'branch',
+      screen: 'Branch',
     },
     {
       title: 'Interest rate',
       subtitle: 'Check current interest rates',
       icon: '📊',
-      action: 'interest',
+      screen: 'InterestRate',
     },
     {
       title: 'Exchange rate',
       subtitle: 'View currency exchange rates',
       icon: '💱',
-      action: 'exchange',
+      screen: 'ExchangeRate',
+    },
+    {
+      title: 'Language',
+      subtitle: 'Choose your language',
+      icon: '🌐',
+      screen: 'Language',
     },
     {
       title: 'Exchange',
       subtitle: 'Exchange your money',
       icon: '💵',
-      action: 'exchange',
+      screen: 'Exchange',
     },
   ];
-
-  const openService = (action: string) => {
-    if (action === 'exchange') {
-      onNavigate('Exchange');
-    } else if (action === 'branch') {
-      Alert.alert('Branch', 'Branch information coming soon');
-    } else {
-      Alert.alert('Interest rate', 'Interest rate information coming soon');
-    }
-  };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => onNavigate('Home')}
-          style={styles.backButton}
-        >
-          <Text style={styles.backArrow}>‹</Text>
+        <TouchableOpacity onPress={() => onNavigate('Home')}>
+          <Text style={styles.back}>‹</Text>
         </TouchableOpacity>
-
         <Text style={styles.headerTitle}>Search</Text>
       </View>
 
@@ -73,12 +62,11 @@ export default function SearchScreen({ onNavigate }: Props) {
         </Text>
 
         <View style={styles.menu}>
-          {menuItems.map((item) => (
+          {menuItems.map(item => (
             <TouchableOpacity
               key={item.title}
               style={styles.menuItem}
-              onPress={() => openService(item.action)}
-              activeOpacity={0.7}
+              onPress={() => onNavigate(item.screen)}
             >
               <View style={styles.iconBox}>
                 <Text style={styles.icon}>{item.icon}</Text>
@@ -88,7 +76,6 @@ export default function SearchScreen({ onNavigate }: Props) {
                 <Text style={styles.menuTitle}>
                   {item.title}
                 </Text>
-
                 <Text style={styles.menuSubtitle}>
                   {item.subtitle}
                 </Text>
@@ -107,11 +94,9 @@ export default function SearchScreen({ onNavigate }: Props) {
             <Text style={styles.bannerTitle}>
               Currency Exchange
             </Text>
-
             <Text style={styles.bannerSubtitle}>
               Exchange currencies easily
             </Text>
-
             <Text style={styles.bannerButton}>
               Exchange now →
             </Text>
@@ -145,7 +130,7 @@ export default function SearchScreen({ onNavigate }: Props) {
 
         <TouchableOpacity
           style={styles.navItem}
-          onPress={() => Alert.alert('Settings', 'Settings coming soon')}
+          onPress={() => onNavigate('Language')}
         >
           <Text style={styles.navIcon}>⚙</Text>
           <Text style={styles.navText}>Settings</Text>
@@ -156,147 +141,58 @@ export default function SearchScreen({ onNavigate }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F7F7FB',
-  },
+  container: { flex: 1, backgroundColor: '#F7F7FB' },
   header: {
-    height: 60,
-    backgroundColor: '#FFFFFF',
-    flexDirection: 'row',
-    alignItems: 'center',
+    height: 60, backgroundColor: '#FFF',
+    flexDirection: 'row', alignItems: 'center',
     paddingHorizontal: 20,
   },
-  backButton: {
-    marginRight: 15,
-  },
-  backArrow: {
-    fontSize: 32,
-    color: '#333333',
-  },
-  headerTitle: {
-    fontSize: 19,
-    fontWeight: 'bold',
-    color: '#333333',
-  },
+  back: { fontSize: 32, color: '#333', marginRight: 15 },
+  headerTitle: { fontSize: 19, fontWeight: 'bold', color: '#333' },
   heading: {
-    fontSize: 23,
-    fontWeight: 'bold',
-    color: '#292929',
-    marginTop: 25,
-    marginHorizontal: 20,
+    fontSize: 23, fontWeight: 'bold',
+    color: '#292929', marginTop: 25, marginHorizontal: 20,
   },
   description: {
-    fontSize: 14,
-    color: '#999999',
-    marginHorizontal: 20,
-    marginTop: 8,
-    marginBottom: 20,
+    fontSize: 14, color: '#999',
+    marginHorizontal: 20, marginTop: 8, marginBottom: 20,
   },
-  menu: {
-    paddingHorizontal: 18,
-  },
+  menu: { paddingHorizontal: 18 },
   menuItem: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 15,
-    padding: 15,
-    marginBottom: 13,
-    flexDirection: 'row',
-    alignItems: 'center',
+    backgroundColor: '#FFF', borderRadius: 15,
+    padding: 15, marginBottom: 13,
+    flexDirection: 'row', alignItems: 'center',
     elevation: 2,
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 5,
   },
   iconBox: {
-    width: 52,
-    height: 52,
-    borderRadius: 14,
+    width: 52, height: 52, borderRadius: 14,
     backgroundColor: '#EEEDFF',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'center', alignItems: 'center',
   },
-  icon: {
-    fontSize: 25,
-  },
-  menuText: {
-    flex: 1,
-    marginLeft: 13,
-  },
-  menuTitle: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: '#333333',
-  },
-  menuSubtitle: {
-    fontSize: 11,
-    color: '#999999',
-    marginTop: 5,
-  },
-  arrow: {
-    fontSize: 27,
-    color: '#999999',
-  },
+  icon: { fontSize: 25 },
+  menuText: { flex: 1, marginLeft: 13 },
+  menuTitle: { fontSize: 15, fontWeight: 'bold', color: '#333' },
+  menuSubtitle: { fontSize: 11, color: '#999', marginTop: 5 },
+  arrow: { fontSize: 27, color: '#999' },
   banner: {
-    backgroundColor: '#3529C5',
-    marginHorizontal: 18,
-    marginTop: 12,
-    marginBottom: 25,
-    padding: 20,
-    borderRadius: 18,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    backgroundColor: '#3529C5', marginHorizontal: 18,
+    marginTop: 12, marginBottom: 25, padding: 20,
+    borderRadius: 18, flexDirection: 'row',
+    alignItems: 'center', justifyContent: 'space-between',
   },
-  bannerTitle: {
-    fontSize: 17,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-  },
-  bannerSubtitle: {
-    fontSize: 12,
-    color: '#DDDAFF',
-    marginTop: 7,
-  },
-  bannerButton: {
-    fontSize: 13,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginTop: 15,
-  },
-  bannerIcon: {
-    fontSize: 48,
-  },
+  bannerTitle: { fontSize: 17, fontWeight: 'bold', color: '#FFF' },
+  bannerSubtitle: { fontSize: 12, color: '#DDDAFF', marginTop: 7 },
+  bannerButton: { fontSize: 13, fontWeight: 'bold', color: '#FFF', marginTop: 15 },
+  bannerIcon: { fontSize: 48 },
   bottomNav: {
-    height: 70,
-    backgroundColor: '#FFFFFF',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    borderTopWidth: 1,
-    borderTopColor: '#EEEEEE',
+    height: 70, backgroundColor: '#FFF',
+    flexDirection: 'row', justifyContent: 'space-around',
+    alignItems: 'center', borderTopWidth: 1,
+    borderTopColor: '#EEE',
   },
-  navItem: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  navIcon: {
-    fontSize: 25,
-    color: '#999999',
-  },
-  activeIcon: {
-    fontSize: 25,
-    color: '#3529C5',
-  },
-  navText: {
-    fontSize: 11,
-    color: '#999999',
-    marginTop: 3,
-  },
-  activeText: {
-    fontSize: 11,
-    color: '#3529C5',
-    marginTop: 3,
-  },
+  navItem: { alignItems: 'center', justifyContent: 'center' },
+  navIcon: { fontSize: 25, color: '#999' },
+  activeIcon: { fontSize: 25, color: '#3529C5' },
+  navText: { fontSize: 11, color: '#999', marginTop: 3 },
+  activeText: { fontSize: 11, color: '#3529C5', marginTop: 3 },
 });

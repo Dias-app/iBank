@@ -19,6 +19,11 @@ import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
 import ExchangeScreen from './screens/ExchangeScreen';
 
+import BranchScreen from './screens/BranchScreen';
+import InterestRateScreen from './screens/InterestRateScreen';
+import ExchangeRateScreen from './screens/ExchangeRateScreen';
+import LanguageScreen from './screens/LanguageScreen';
+
 const screens = {
   SignIn,
   SignUp1,
@@ -35,19 +40,18 @@ export type ScreenName =
   | keyof typeof screens
   | 'Home'
   | 'Search'
-  | 'Exchange';
+  | 'Exchange'
+  | 'Branch'
+  | 'InterestRate'
+  | 'ExchangeRate'
+  | 'Language';
 
 export default function App() {
   const [screen, setScreen] = useState<ScreenName>('SignIn');
-
-  // Save user's name
   const [userName, setUserName] = useState('User');
 
   const navigate = (name: ScreenName, newUserName?: string) => {
-    if (newUserName) {
-      setUserName(newUserName);
-    }
-
+    if (newUserName) setUserName(newUserName);
     setScreen(name);
   };
 
@@ -61,14 +65,19 @@ export default function App() {
       <StatusBar style="dark" />
 
       {screen === 'Home' ? (
-        <HomeScreen
-          onNavigate={navigate}
-          userName={userName}
-        />
+        <HomeScreen onNavigate={navigate} userName={userName} />
       ) : screen === 'Search' ? (
         <SearchScreen onNavigate={navigate} />
       ) : screen === 'Exchange' ? (
         <ExchangeScreen onNavigate={navigate} />
+      ) : screen === 'Branch' ? (
+        <BranchScreen onBack={() => navigate('Search')} />
+      ) : screen === 'InterestRate' ? (
+        <InterestRateScreen onBack={() => navigate('Search')} />
+      ) : screen === 'ExchangeRate' ? (
+        <ExchangeRateScreen onBack={() => navigate('Search')} />
+      ) : screen === 'Language' ? (
+        <LanguageScreen onBack={() => navigate('Search')} />
       ) : CurrentScreen ? (
         <CurrentScreen navigate={navigate} />
       ) : null}
